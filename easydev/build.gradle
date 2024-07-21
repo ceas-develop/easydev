@@ -7,6 +7,13 @@ android {
     namespace 'com.ceas.develop.easydev'
     compileSdk 34
 
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+
     defaultConfig {
         minSdk 24
         targetSdk 34
@@ -30,15 +37,17 @@ android {
 
 dependencies {
 }
+
 publishing {
     publications {
-        maven(MavenPublication) {
+        release(MavenPublication) {
             groupId = 'com.github.ceas-develop'
             artifactId = 'easydev'
             version = '1.0'
+
+            afterEvaluate {
+                from components.release
+            }
         }
-    }
-    repositories {
-        mavenLocal()
     }
 }
