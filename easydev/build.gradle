@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -28,4 +29,16 @@ android {
 }
 
 dependencies {
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.github.ceas-develop'
+            artifactId = 'easydev'
+            version = '1.0'
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
