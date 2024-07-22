@@ -5,22 +5,20 @@ plugins {
 
 android {
     namespace 'com.ceas.develop.easydev'
-    compileSdk 34
+    compileSdk 33
 
-   /* publishing {
+    defaultConfig {
+        minSdk 24
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    publishing {
         singleVariant("release") {
             withSourcesJar()
             withJavadocJar()
         }
-    }*/
-
-    defaultConfig {
-        minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -37,8 +35,19 @@ android {
 
 dependencies {
 }
-
 afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.ceas-develop'
+                artifactId = 'easydev'
+                version = '1.0.0'
+            }
+        }
+    }
+}
+/*afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
@@ -48,7 +57,7 @@ afterEvaluate {
             }
         }
     }
-}
+}*/
 
 
 /*publishing {
