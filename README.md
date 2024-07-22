@@ -14,11 +14,14 @@ Adicione a seguinte dependência ao seu arquivo `build.gradle`:
 dependencies {
     implementation 'com.ceas.develop:easydev:1.0.0'
 }
+```
 
-Uso
+
+## Documentação
+
 Criando um Worker
 Para criar um Worker, utilize o método Worker.get() e passe uma implementação da interface Work. A interface Work possui um único método working() que contém a implementação da tarefa.
-
+```java
 Worker<String, Integer> worker = Worker.get(new Work<String, Integer>() {
     @Override
     public Integer working(Manager manager, String... params) {
@@ -35,11 +38,13 @@ Worker<String, Integer> worker = Worker.get(new Work<String, Integer>() {
         return 100; // Retorna o resultado da tarefa
     }
 });
+```
 
 
 Definindo Ações Antes e Depois
 Você pode definir ações a serem realizadas antes e depois da tarefa utilizando os métodos before() e after(). O método before permite o pré-processamento dos parâmetros, e o método after manipula o pós-processamento dos resultados ou exceções.
 
+```java
 worker.before(params -> {
     // Pré-processamento antes da tarefa
     return params;
@@ -53,17 +58,19 @@ worker.before(params -> {
         System.err.println("Tarefa falhou com exceção: " + exception.getMessage());
     }
 });
+```
 
 
 Executando a Tarefa
 Para executar a tarefa, chame o método execute() e passe os parâmetros necessários. O método execute() retorna um objeto Feedback que você pode usar para monitorar o progresso e o status da tarefa.
-
+```java
 Feedback<Integer> feedback = worker.execute("Parâmetro da Tarefa");
-
+```
 
 Monitorando o Progresso e o Status da Tarefa
 Você pode monitorar o progresso e o status da tarefa utilizando a classe Feedback. Defina manipuladores de sucesso, progresso e falha para lidar com diferentes estados da tarefa.
 
+```java
 if (feedback != null) {
     feedback.success((result, stopped) -> {
         // Manipula sucesso
@@ -76,6 +83,7 @@ if (feedback != null) {
         System.err.println("Tarefa falhou com exceção: " + exception.getMessage());
     });
 }
+```
 
 
 
